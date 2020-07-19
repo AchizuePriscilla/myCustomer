@@ -44,6 +44,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
       BuildContext context, BusinessViewModel viewModel) {
     var _storeName = useTextEditingController();
     var _storeAddress = useTextEditingController();
+    var _fullName = useTextEditingController();
+    var _emailAddress = useTextEditingController();
 
     return Form(
       key: _businessFormPageKey,
@@ -69,10 +71,10 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
             child: TextFormField(
-              key: Key("storeName"),
-              controller: _storeName,
+              key: Key("fullname"),
+              controller: _fullName,
               validator: (value) =>
-                  (value.isEmpty) ? "Please enter store name" : null,
+                  (value.isEmpty) ? "Please enter your full name" : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -80,7 +82,43 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter your  store name",
+                  labelText: "Enter your  full name",
+                  border: OutlineInputBorder()),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+            child: TextFormField(
+              key: Key("email"),
+              controller: _emailAddress,
+              validator: (value) =>
+                  (!RegExp(r'[\W-\.]{1,}\@[\W-]{2,}\.[\W-\.]{2,}').hasMatch(value)) ? "Please enter a valid email address" : null,
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                  labelText: "Enter your email address",
+                  border: OutlineInputBorder()),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+            child: TextFormField(
+              key: Key("storeName"),
+              controller: _storeName,
+              validator: (value) =>
+                  (value.isEmpty) ? AppLocalizations.of(context).pleaseStoreName : null,
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).enterStoreName,
                   border: OutlineInputBorder()),
             ),
           ),
@@ -90,7 +128,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
               key: Key("storeAddress"),
               controller: _storeAddress,
               validator: (value) =>
-                  (value.isEmpty) ? "Please enter store address" : null,
+                  (value.isEmpty) ? AppLocalizations.of(context).pleaseStoreAddress : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -98,7 +136,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter your store address",
+                  labelText: AppLocalizations.of(context).enterStoreAddress,
                   border: OutlineInputBorder()),
             ),
           ),
@@ -116,6 +154,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 FocusScope.of(context).requestFocus(FocusNode());
 
                 //Call Function to Signin
+                viewModel.updateUserDeets(_fullName.text.trim(), _emailAddress.text.trim());
                 viewModel.updateUser(
                     _storeName.text.trim(), _storeAddress.text.trim());
               }

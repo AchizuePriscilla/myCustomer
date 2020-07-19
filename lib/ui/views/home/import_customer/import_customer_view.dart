@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
@@ -33,7 +34,7 @@ class ImportCustomerView extends StatelessWidget {
           FlatButton(
             onPressed: model.popView,
             child: Text(
-              'Cancel',
+              AppLocalizations.of(context).cancel,
               style: TextStyle(
                 color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
                 fontSize: SizeConfig.yMargin(context, 2.5)
@@ -64,7 +65,7 @@ class ImportCustomerView extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  'Add New Customer',
+                  AppLocalizations.of(context).addNewCustomer,
                   style: TextStyle(
                     color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
                     fontSize: SizeConfig.yMargin(context, 2.3)
@@ -122,7 +123,7 @@ class ImportCustomerView extends StatelessWidget {
                         ),
                       ),
                       trailing: Container(
-                        //padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
                         child: FlatButton.icon(
                           icon: Icon(
                             Icons.add,
@@ -133,7 +134,7 @@ class ImportCustomerView extends StatelessWidget {
                             model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number', customer.initials, action);
                           },
                           label: Text(
-                            'ADD',
+                            AppLocalizations.of(context).addButton,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: SizeConfig.yMargin(context, 1.5),
@@ -191,7 +192,7 @@ class TitleHeader extends SliverPersistentHeaderDelegate {
       ),
       child: Text(
         // This is just the text formatting for singular and plural
-        action == 'debtor' ? 'Add Debtor from Contacts' : 'Add Creditor from Contacts',
+        action == 'debtor' ? AppLocalizations.of(context).addDebtorsFromContacts : 'Add Creditor from Contacts',
         style: TextStyle(
           color: ThemeColors.black,
           fontWeight: FontWeight.bold,
@@ -243,7 +244,7 @@ class __SearchBarState extends State<_SearchBar> {
         decoration: InputDecoration(
           hintText: 'Search',
           hintStyle: TextStyle(
-            fontSize: 18
+            fontSize: SizeConfig.yMargin(context, 2.5)
           ),
           prefixIcon: Icon(Icons.search, color: Theme.of(context).cursorColor,),
           border: InputBorder.none,
@@ -251,7 +252,7 @@ class __SearchBarState extends State<_SearchBar> {
           enabledBorder: InputBorder.none,
           fillColor: Colors.transparent,
           focusColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+          contentPadding: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.3)),
         ),
         style: TextStyle(
           fontSize: 18

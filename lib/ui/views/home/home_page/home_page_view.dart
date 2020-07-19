@@ -35,7 +35,7 @@ class HomePageView extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     unselectedLabelColor: Theme.of(context).cursorColor,
                     labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -49,8 +49,9 @@ class HomePageView extends StatelessWidget {
                               AppLocalizations.of(context).customersOwingYou,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
+                              //maxLines: 1,
                             ),
                           ),
                         ),
@@ -62,8 +63,8 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -74,10 +75,10 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "All Customers",
+                              AppLocalizations.of(context).allCustomers,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -95,7 +96,7 @@ class HomePageView extends StatelessWidget {
                         model.contacts.length == 0
                             ? Expanded(
                                 child: Center(
-                                  child: Text('No Customer Added'),
+                                  child: Text(AppLocalizations.of(context).noCustomerAdded),
                                 ),
                               )
                             : ContactList()
@@ -148,7 +149,7 @@ class ContactList extends StatelessWidget {
                 ),
               ),
               model.sName != null && !model.contains
-                  ? Text('No Customer Found')
+                  ? Text(AppLocalizations.of(context).noCustomerFound)
                   : SizedBox(),
               for (var item in model.contacts)
                 model.sName != null && model.contains
@@ -222,7 +223,10 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(item.name),
+                                title: Text(
+                                  item.name,
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                ),
                               ),
                             ),
                           )

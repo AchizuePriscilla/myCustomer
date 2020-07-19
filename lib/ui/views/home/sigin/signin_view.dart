@@ -31,11 +31,14 @@ class SignInView extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
         ),
         child: SafeArea(
-          child: Scaffold(
-            key: _signinPageKey,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: BrandColors.primary,
-            body: CustomBackground(child: _PartialBuildForm()),
+          child: WillPopScope(
+            onWillPop: () => model.navigateToOnboarding(),
+                      child: Scaffold(
+              key: _signinPageKey,
+              resizeToAvoidBottomInset: false,
+              backgroundColor: BrandColors.primary,
+              body: CustomBackground(child: _PartialBuildForm()),
+            ),
           ),
         ),
       ),
@@ -78,7 +81,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your phone number',
+                  AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -106,7 +109,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 ignoreBlank: false,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),
@@ -121,7 +124,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your password',
+                  AppLocalizations.of(context).pleaseEnterPassword,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -181,7 +184,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
               borderColor: BrandColors.primary,
-              btnText: 'Next',
+              btnText: AppLocalizations.of(context).nextButton,
               onPressed: () async {
                 // viewModel.signUpTest();
                 if (!_signinFormPageKey.currentState.validate()) return;
@@ -204,56 +207,56 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               ),
             ),
             SizedBox(height: SizeConfig.yMargin(context, 4)),
-            Text(
-              'or \n Continue with your social accounts',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).textSelectionColor,
-                fontSize: SizeConfig.yMargin(context, 1.8),
-              ),
-            ),
-            SizedBox(height: SizeConfig.yMargin(context, 2)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SocialIconButton(
-                  onTap: () {
-                    Flushbar(
-                      backgroundColor: BrandColors.primary,
-                      duration: const Duration(seconds: 3),
-                      message: 'Google signin coming soon',
-                      icon: Icon(
-                        Icons.info_outline,
-                        size: 28.0,
-                        color: ThemeColors.background,
-                      ),
-                      leftBarIndicatorColor: Colors.blue[300],
-                    ).show(context);
-                  },
-                  socialIconUrl: 'assets/icons/google_icon.png',
-                ),
-                SocialIconButton(
-                  onTap: () {
-                    Flushbar(
-                      backgroundColor: BrandColors.primary,
-                      duration: const Duration(seconds: 3),
-                      message: 'Facebook signin coming soon',
-                      icon: Icon(
-                        Icons.info_outline,
-                        size: 28.0,
-                        color: ThemeColors.background,
-                      ),
-                      leftBarIndicatorColor: Colors.blue[300],
-                    ).show(context);
-                  },
-                  socialIconUrl: 'assets/icons/facebook_icon.png',
-                ),
-                //  SocialIconButton(
-                //    onTap: () {},
-                //    socialIconUrl: 'assets/icons/apple_icon.png',
-                //  ),
-              ],
-            ),
+            // Text(
+            //   'or \n Continue with your social accounts',
+            //   textAlign: TextAlign.center,
+            //   style: TextStyle(
+            //     color: Theme.of(context).textSelectionColor,
+            //     fontSize: SizeConfig.yMargin(context, 1.8),
+            //   ),
+            // ),
+            // SizedBox(height: SizeConfig.yMargin(context, 2)),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     SocialIconButton(
+            //       onTap: () {
+            //         Flushbar(
+            //           backgroundColor: BrandColors.primary,
+            //           duration: const Duration(seconds: 3),
+            //           message: 'Google signin coming soon',
+            //           icon: Icon(
+            //             Icons.info_outline,
+            //             size: 28.0,
+            //             color: ThemeColors.background,
+            //           ),
+            //           leftBarIndicatorColor: Colors.blue[300],
+            //         ).show(context);
+            //       },
+            //       socialIconUrl: 'assets/icons/google_icon.png',
+            //     ),
+            //     SocialIconButton(
+            //       onTap: () {
+            //         Flushbar(
+            //           backgroundColor: BrandColors.primary,
+            //           duration: const Duration(seconds: 3),
+            //           message: 'Facebook signin coming soon',
+            //           icon: Icon(
+            //             Icons.info_outline,
+            //             size: 28.0,
+            //             color: ThemeColors.background,
+            //           ),
+            //           leftBarIndicatorColor: Colors.blue[300],
+            //         ).show(context);
+            //       },
+            //       socialIconUrl: 'assets/icons/facebook_icon.png',
+            //     ),
+            //     //  SocialIconButton(
+            //     //    onTap: () {},
+            //     //    socialIconUrl: 'assets/icons/apple_icon.png',
+            //     //  ),
+            //   ],
+            // ),
             SizedBox(height: SizeConfig.yMargin(context, 2)),
             CustomRaisedButton(
               btnColor: ThemeColors.unselect,
